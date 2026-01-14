@@ -785,3 +785,638 @@
     </script>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ تحذير نظامي!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* شاشة الاختراق */
+        #hackScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #0f0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+        }
+
+        /* شاشة المفاجأة */
+        #surpriseScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-size: 300% 300%;
+            animation: gradientBG 8s ease infinite;
+            z-index: 900;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* بقية الأنماط تبقى كما هي مع تعديلات بسيطة */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: #111;
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            margin: 20px;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            2% { transform: translate(-2px, 2px); }
+            4% { transform: translate(-2px, -2px); }
+            6% { transform: translate(2px, 2px); }
+            8% { transform: translate(2px, -2px); }
+            10% { transform: translate(0); }
+            100% { transform: translate(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0f0;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: #ff0000;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .terminal {
+            background: #000;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            min-height: 250px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            margin-bottom: 10px;
+            color: #0f0;
+            animation: typing 0.5s steps(40, end);
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .danger {
+            color: #ff0000;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .countdown-box {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid #ff0000;
+        }
+
+        #countdown {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            margin: 20px 0;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .scan-bar {
+            width: 100%;
+            height: 5px;
+            background: #333;
+            margin-top: 30px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .scan-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0f0, #ff0);
+            animation: scanning 3s linear infinite;
+        }
+
+        @keyframes scanning {
+            0% { width: 0%; margin-left: 0; }
+            50% { width: 100%; margin-left: 0; }
+            100% { width: 0%; margin-left: 100%; }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+            padding: 15px;
+            border-radius: 5px;
+            backdrop-filter: blur(10px);
+            display: none;
+            animation: slideIn 0.5s;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* شاشة المفاجأة */
+        .surprise-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 20px;
+            text-align: center;
+            animation: bounceIn 1s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .surprise-title {
+            font-size: 3rem;
+            color: #ff4757;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .message {
+            font-size: 2rem;
+            color: #e84393;
+            margin: 20px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .funny-text {
+            font-size: 1.5rem;
+            margin: 15px 0;
+            color: #2d3436;
+            line-height: 1.6;
+        }
+
+        .emoji-face {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: spin 3s infinite linear;
+        }
+
+        .controls {
+            margin-top: 30px;
+        }
+
+        button {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .music-btn {
+            background: #00cec9;
+        }
+
+        .music-btn:hover {
+            background: #00b894;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff6b6b;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 0.7; }
+        }
+
+        /* إصلاح لعرض الجوال */
+        @media (max-width: 768px) {
+            .container, .surprise-container {
+                width: 95%;
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 { font-size: 1.8rem; }
+            .surprise-title { font-size: 2rem; }
+            .message { font-size: 1.5rem; }
+            #countdown { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- شاشة الاختراق -->
+    <div id="hackScreen">
+        <div class="container">
+            <div class="header">
+                <h1><i class="fas fa-skull-crossbones"></i> تحذير أمني خطير!</h1>
+                <p>تم اكتشاف اختراق في نظامك!</p>
+            </div>
+            
+            <div class="terminal" id="terminal">
+                <div class="terminal-line">> بدء فحص النظام...</div>
+                <div class="terminal-line">> اكتشاف برنامج ضار: Trojan.Hack.Prank</div>
+                <div class="terminal-line">> الملفات المصابة: <span class="danger">system32.dll, kernel.exe</span></div>
+                <div class="terminal-line">> جارٍ سرقة البيانات...</div>
+                <div class="terminal-line">> النسبة: <span class="danger">▇▇▇▇▇ 65% مكتمل</span></div>
+                <div class="terminal-line">> <span id="cursor">█</span></div>
+            </div>
+            
+            <div class="countdown-box">
+                <h3><i class="fas fa-bomb"></i> سيتم إيقاف الاختراق خلال:</h3>
+                <div id="countdown">10</div>
+                <p>جارٍ تشغيل برنامج مكافحة الاختراق...</p>
+            </div>
+            
+            <div class="scan-bar">
+                <div class="scan-progress"></div>
+            </div>
+        </div>
+        
+        <div class="notification" id="notification1">
+            <i class="fas fa-exclamation-circle"></i> فشل برنامج الحماية في التحميل!
+        </div>
+        
+        <div class="notification" id="notification2">
+            <i class="fas fa-wifi-slash"></i> تم قطع الاتصال بالإنترنت!
+        </div>
+        
+        <!-- الموسيقى المخيفة -->
+        <audio id="hackMusic" loop preload="auto">
+            <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- شاشة المفاجأة -->
+    <div id="surpriseScreen">
+        <div class="surprise-container">
+            <h1 class="surprise-title">🎉 بهاااااااااز! 🎉</h1>
+            
+            <div class="message">❤️ معاك يا حبيبي! ❤️</div>
+            
+            <div class="funny-text">
+                <p>مش اختراق ولا حاجة... انا بحبك! 😘</p>
+                <p>كل سنة وانت طيب يا قلب! 🎂</p>
+                <p>وانت الأفضل في الدنيا! 🌟</p>
+                <p>هاهو قلبك ❤️ يلا بينا نحتفل! 🥳</p>
+            </div>
+            
+            <div class="emoji-face">😜😂🤣</div>
+            
+            <div class="controls">
+                <button id="repeatBtn">
+                    <i class="fas fa-redo"></i> شوف المقلب تاني
+                </button>
+                <button id="musicBtn" class="music-btn">
+                    <i class="fas fa-music"></i> موسيقى الفرحة
+                </button>
+            </div>
+        </div>
+        
+        <!-- الموسيقى الاحتفالية -->
+        <audio id="celebrationMusic" loop preload="auto">
+            <source src="https://assets.mixkit.co/music/preview/mixkit-happy-celebration-567.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // العناصر الرئيسية
+        const hackScreen = document.getElementById('hackScreen');
+        const surpriseScreen = document.getElementById('surpriseScreen');
+        const countdownElement = document.getElementById('countdown');
+        const hackMusic = document.getElementById('hackMusic');
+        const celebrationMusic = document.getElementById('celebrationMusic');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const musicBtn = document.getElementById('musicBtn');
+        const terminal = document.getElementById('terminal');
+        
+        // المتغيرات
+        let countdown = 10;
+        let celebrationMusicPlaying = false;
+        
+        // بدء المقلب
+        function startPrank() {
+            // تشغيل الموسيقى المخيفة
+            playHackMusic();
+            
+            // إظهار الإشعارات
+            showNotifications();
+            
+            // بدء العد التنازلي
+            startCountdown();
+            
+            // إضافة أسطر جديدة للطرفية
+            addTerminalLines();
+        }
+        
+        // تشغيل الموسيقى المخيفة
+        function playHackMusic() {
+            hackMusic.volume = 0.5;
+            hackMusic.play().catch(e => {
+                console.log('يحتاج تفاعل المستخدم لتشغيل الموسيقى');
+            });
+        }
+        
+        // إظهار الإشعارات
+        function showNotifications() {
+            const notif1 = document.getElementById('notification1');
+            const notif2 = document.getElementById('notification2');
+            
+            setTimeout(() => {
+                notif1.style.display = 'block';
+                setTimeout(() => {
+                    notif1.style.opacity = '0';
+                }, 3000);
+            }, 1000);
+            
+            setTimeout(() => {
+                notif2.style.display = 'block';
+                setTimeout(() => {
+                    notif2.style.opacity = '0';
+                }, 3000);
+            }, 3000);
+        }
+        
+        // العد التنازلي
+        function startCountdown() {
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                // تغيير اللون عند اقتراب الصفر
+                if (countdown <= 3) {
+                    countdownElement.style.color = '#ff9900';
+                    countdownElement.style.transform = 'scale(1.2)';
+                }
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    showSurprise();
+                }
+            }, 1000);
+        }
+        
+        // إضافة أسطر للطرفية
+        function addTerminalLines() {
+            const lines = [
+                "> جارٍ تصدير بيانات المستخدم...",
+                "> الوصول إلى الصور الشخصية...",
+                "> سرقة كلمات المرور...",
+                "> تشغيل الكاميرا عن بعد...",
+                "> اتصال بالخادم الخارجي...",
+                "> تثبيت برنامج خلفي...",
+                "> تجاوز جدار الحماية..."
+            ];
+            
+            let lineIndex = 0;
+            const lineInterval = setInterval(() => {
+                if (lineIndex < lines.length) {
+                    const newLine = document.createElement('div');
+                    newLine.className = 'terminal-line';
+                    newLine.textContent = lines[lineIndex];
+                    terminal.appendChild(newLine);
+                    lineIndex++;
+                    
+                    // حذف الأسطر القديمة
+                    if (terminal.children.length > 8) {
+                        terminal.removeChild(terminal.firstChild);
+                    }
+                    
+                    // التمرير للأسفل
+                    terminal.scrollTop = terminal.scrollHeight;
+                } else {
+                    clearInterval(lineInterval);
+                }
+            }, 1500);
+        }
+        
+        // عرض المفاجأة
+        function showSurprise() {
+            // إيقاف الموسيقى المخيفة
+            hackMusic.pause();
+            hackMusic.currentTime = 0;
+            
+            // إخفاء شاشة الاختراق
+            hackScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                hackScreen.style.display = 'none';
+                
+                // إظهار شاشة المفاجأة
+                surpriseScreen.style.display = 'flex';
+                
+                setTimeout(() => {
+                    surpriseScreen.style.opacity = '1';
+                    
+                    // تشغيل الموسيقى الاحتفالية
+                    playCelebrationMusic();
+                    
+                    // إنشاء القلوب
+                    createHearts();
+                }, 100);
+            }, 1000);
+        }
+        
+        // تشغيل الموسيقى الاحتفالية
+        function playCelebrationMusic() {
+            celebrationMusic.volume = 0.7;
+            celebrationMusic.play()
+                .then(() => {
+                    celebrationMusicPlaying = true;
+                    musicBtn.innerHTML = '<i class="fas fa-volume-up"></i> إيقاف الموسيقى';
+                })
+                .catch(e => {
+                    console.log('يحتاج تفاعل للموسيقى');
+                    musicBtn.innerHTML = '<i class="fas fa-play"></i> تشغيل الموسيقى';
+                });
+        }
+        
+        // إيقاف الموسيقى الاحتفالية
+        function stopCelebrationMusic() {
+            celebrationMusic.pause();
+            celebrationMusic.currentTime = 0;
+            celebrationMusicPlaying = false;
+            musicBtn.innerHTML = '<i class="fas fa-music"></i> موسيقى الفرحة';
+        }
+        
+        // إنشاء القلوب الطائرة
+        function createHearts() {
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                surpriseScreen.appendChild(heart);
+            }
+        }
+        
+        // إعادة تشغيل المقلب
+        function restartPrank() {
+            // إعادة التعيين
+            countdown = 10;
+            countdownElement.textContent = countdown;
+            countdownElement.style.color = '#ff0000';
+            countdownElement.style.transform = 'scale(1)';
+            
+            // تنظيف الطرفية
+            terminal.innerHTML = `
+                <div class="terminal-line">> بدء فحص النظام...</div>
+                <div class="terminal-line">> اكتشاف برنامج ضار: Trojan.Hack.Prank</div>
+                <div class="terminal-line">> الملفات المصابة: <span class="danger">system32.dll, kernel.exe</span></div>
+                <div class="terminal-line">> جارٍ سرقة البيانات...</div>
+                <div class="terminal-line">> النسبة: <span class="danger">▇▇▇▇▇ 65% مكتمل</span></div>
+                <div class="terminal-line">> <span id="cursor">█</span></div>
+            `;
+            
+            // إعادة تعيين الإشعارات
+            document.querySelectorAll('.notification').forEach(notif => {
+                notif.style.display = 'none';
+                notif.style.opacity = '1';
+            });
+            
+            // إخفاء المفاجأة
+            surpriseScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                surpriseScreen.style.display = 'none';
+                
+                // إزالة القلوب
+                document.querySelectorAll('.heart').forEach(heart => heart.remove());
+                
+                // إيقاف الموسيقى الاحتفالية
+                stopCelebrationMusic();
+                
+                // إظهار الاختراق
+                hackScreen.style.display = 'flex';
+                hackScreen.style.opacity = '1';
+                
+                // إعادة البدء
+                setTimeout(startPrank, 500);
+            }, 500);
+        }
+        
+        // تفاعل المستخدم مع الموسيقى
+        musicBtn.addEventListener('click', () => {
+            if (celebrationMusicPlaying) {
+                stopCelebrationMusic();
+            } else {
+                playCelebrationMusic();
+            }
+        });
+        
+        // تفاعل إعادة التشغيل
+        repeatBtn.addEventListener('click', restartPrank);
+        
+        // بدء المقلب عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            // تفعيل المؤشر الوامض
+            const cursor = document.getElementById('cursor');
+            setInterval(() => {
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }, 500);
+            
+            // بدء المقلب بعد ثانيتين
+            setTimeout(startPrank, 2000);
+        });
+        
+        // السماح بتشغيل الصوت عند أي تفاعل
+        document.addEventListener('click', () => {
+            // محاولة تشغيل الموسيقى إذا كانت متوقفة
+            if (hackMusic.paused && hackScreen.style.display !== 'none') {
+                hackMusic.play().catch(e => console.log('مشكلة في الصوت'));
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
