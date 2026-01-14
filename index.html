@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ تحذير أمني!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- المرحلة الأولى: رسالة الاختراق -->
+    <div id="hackScreen" class="screen active">
+        <div class="container">
+            <div class="hack-header">
+                <i class="fas fa-skull-crossbones danger-icon"></i>
+                <h1 class="glitch" data-text="⚠️ تحذير أمني خطير!">⚠️ تحذير أمني خطير!</h1>
+                <i class="fas fa-exclamation-triangle danger-icon"></i>
+            </div>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="close"></span>
+                        <span class="minimize"></span>
+                        <span class="maximize"></span>
+                    </div>
+                    <span class="terminal-title">system_security_alert.exe</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">جاري فحص النظام...</div>
+                    <div class="terminal-line">كشف البرنامج الضار: Trojan.Hack.Prank</div>
+                    <div class="terminal-line">الموقع: نظام التشغيل الرئيسي</div>
+                    <div class="terminal-line">الحالة: <span class="danger-text">نشط ومتفشي!</span></div>
+                    <div class="terminal-line">جاري سرقة البيانات...</div>
+                    <div class="terminal-line"><span class="blink">█</span></div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <p><i class="fas fa-user-secret"></i> تم اكتشاف عملية اختراق لجهازك!</p>
+                <p><i class="fas fa-clock"></i> بدأت قبل: 2 دقيقة و 43 ثانية</p>
+                <p><i class="fas fa-database"></i> البيانات المسربة: 74%</p>
+            </div>
+            
+            <div class="countdown-box">
+                <h3><i class="fas fa-bomb"></i> إيقاف الاختراق خلال:</h3>
+                <div id="countdown" class="countdown">10</div>
+                <p class="small-text">جارٍ تشغيل برنامج مكافحة الاختراق...</p>
+            </div>
+            
+            <div class="fake-notifications">
+                <div class="notification" id="notif1">
+                    <i class="fas fa-shield-alt"></i> فشل برنامج الحماية في التحميل!
+                </div>
+                <div class="notification" id="notif2">
+                    <i class="fas fa-wifi"></i> تم قطع الاتصال بالإنترنت!
+                </div>
+                <div class="notification" id="notif3">
+                    <i class="fas fa-camera"></i> تم تشغيل الكاميرا عن بُعد!
+                </div>
+            </div>
+            
+            <div class="scan-bar">
+                <div class="scan-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- المرحلة الثانية: المفاجئة -->
+    <div id="surpriseScreen" class="screen">
+        <div class="surprise-container">
+            <div class="hearts">
+                <i class="fas fa-heart heart1"></i>
+                <i class="fas fa-heart heart2"></i>
+                <i class="fas fa-heart heart3"></i>
+                <i class="fas fa-heart heart4"></i>
+                <i class="fas fa-heart heart5"></i>
+            </div>
+            
+            <div class="message-box">
+                <h1 class="surprise-title">🎉 بهااااااااااز! 🎉</h1>
+                <h2 class="love-text">معاك يا حبيبي! ❤️</h2>
+                
+                <div class="joke-content">
+                    <p>مش اختراق ولا حاجة... انا بحبك! 😘</p>
+                    <p>كل سنة وانت طيب يا قلب! 🎂</p>
+                    <p>وانت الأفضل في الدنيا كلها! 🌟</p>
+                </div>
+                
+                <div class="funny-face">
+                    <div class="face">
+                        <div class="eyes">
+                            <div class="eye left">😜</div>
+                            <div class="eye right">😝</div>
+                        </div>
+                        <div class="mouth">😂</div>
+                    </div>
+                </div>
+                
+                <div class="party-effects">
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                </div>
+                
+                <div class="final-message">
+                    <p>❤️❤️❤️ الحب الحقيقي مش الاختراق ❤️❤️❤️</p>
+                    <p>اتمنى تكون ضحكت وانت فاكرها حقيقة! 🤣</p>
+                </div>
+                
+                <button id="repeatBtn" class="repeat-btn">
+                    <i class="fas fa-redo"></i> شوف المقلب تاني
+                </button>
+            </div>
+            
+            <div class="audio-controls">
+                <button id="musicBtn" class="music-btn">
+                    <i class="fas fa-music"></i> موسيقى الفرحة
+                </button>
+                <audio id="celebrationAudio" loop>
+                    <source src="https://assets.mixkit.co/music/preview/mixkit-happy-celebration-567.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
